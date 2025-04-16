@@ -830,7 +830,7 @@ class Trainer(BaseTrainer):
 
         return general_global_step
 
-    def log(self, logs: Dict[str, float]) -> None:
+    def log(self, logs: Dict[str, float], start_time: Optional[float] = None) -> None:
         # Ensuring that eval metrics are prefixed as "eval_" so that the HF integration loggers
         # do not prefix metrics names with 'train/' (as 'train/' is always added when not eval)
         logs = {re.sub("^eval/", "eval_", k).replace("train/", ""): v for k, v in logs.items()}
