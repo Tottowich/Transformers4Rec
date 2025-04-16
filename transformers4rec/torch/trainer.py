@@ -312,7 +312,7 @@ class Trainer(BaseTrainer):
             optimizer, num_warmup_steps=num_warmup_steps, num_training_steps=num_training_steps
         )
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """
         Overriding :obj:`Trainer.compute_loss()`
         To allow for passing the targets to the model's forward method
