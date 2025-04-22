@@ -521,7 +521,7 @@ class Trainer(BaseTrainer):
                     losses if losses_host is None else torch.cat((losses_host, losses), dim=0)
                 )
             if labels is not None:
-                labels = self._pad_across_processes(labels)
+                labels = self.accelerator.pad_across_processes(labels)
                 labels = self._nested_gather(labels)
                 labels_host = (
                     labels
