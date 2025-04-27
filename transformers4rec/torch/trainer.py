@@ -99,6 +99,7 @@ class Trainer(BaseTrainer):
         callbacks: Optional[List[TrainerCallback]] = [],
         compute_metrics=None,
         incremental_logging: bool = False,
+        use_amp: bool = False,
         **kwargs,
     ):
         mock_dataset = DatasetMock()
@@ -127,6 +128,7 @@ class Trainer(BaseTrainer):
         self.test_dataloader = test_dataloader
         self.schema = schema
         self.incremental_logging = incremental_logging
+        self.use_amp = use_amp
 
         # Set global_rank and global_size if DDP is used
         if self.args.local_rank != -1:
