@@ -175,12 +175,16 @@ class Trainer(BaseTrainer):
 
         if eval_dataset is None and self.eval_dataset is None:
             raise ValueError("Trainer: evaluation requires an eval_dataset.")
-        eval_dataset = eval_dataset if eval_dataset is not None else self.eval_dataset
+        eval_dataset = (
+            eval_dataset
+            if eval_dataset is not None
+            else self.eval_dataset or self.eval_dataset_or_path
+        )
         assert self.schema is not None, "schema is required to generate Eval Dataloader"
 
         return T4RecDataLoader.parse(self.args.data_loader_engine).from_schema(
             self.schema,
-            self.eval_dataset_or_path,
+            eval_dataset,
             self.args.per_device_eval_batch_size,
             max_sequence_length=self.args.max_sequence_length,
             drop_last=self.args.dataloader_drop_last,
